@@ -36,7 +36,6 @@
 #include <QDateTime>
 #include <QDebug>
 #include <gio/gio.h>
-#include <messaging-menu-message.h>
 #include <History/Manager>
 #include <History/TextEvent>
 
@@ -77,52 +76,52 @@ void openMessage(NotificationData *notificationData)
 MessagingMenu::MessagingMenu(QObject *parent) :
     QObject(parent)
 {
-    GIcon *icon = g_icon_new_for_string("telephony-service-indicator", NULL);
-    mMessagesApp = messaging_menu_app_new("telephony-service-sms.desktop");
-    messaging_menu_app_register(mMessagesApp);
-    messaging_menu_app_append_source(mMessagesApp, SOURCE_ID, icon, C::gettext("Telephony Service"));
-
-    mCallsApp = messaging_menu_app_new("telephony-service-call.desktop");
-    messaging_menu_app_register(mCallsApp);
-    messaging_menu_app_append_source(mCallsApp, SOURCE_ID, icon, C::gettext("Telephony Service"));
-
-    g_object_unref(icon);
+//    GIcon *icon = g_icon_new_for_string("telephony-service-indicator", NULL);
+//    mMessagesApp = messaging_menu_app_new("telephony-service-sms.desktop");
+//    messaging_menu_app_register(mMessagesApp);
+//    messaging_menu_app_append_source(mMessagesApp, SOURCE_ID, icon, C::gettext("Telephony Service"));
+//
+//    mCallsApp = messaging_menu_app_new("telephony-service-call.desktop");
+//    messaging_menu_app_register(mCallsApp);
+//    messaging_menu_app_append_source(mCallsApp, SOURCE_ID, icon, C::gettext("Telephony Service"));
+//
+//    g_object_unref(icon);
 }
 
 void MessagingMenu::addFlashMessage(NotificationData notificationData) {
-    QUrl iconPath = QUrl::fromLocalFile(telephonyServiceDir() + "/assets/avatar-default@18.png");
-    QString contactAlias = notificationData.senderId;
-    GFile *file = g_file_new_for_uri(iconPath.toString().toUtf8().data());
-    GIcon *icon = g_file_icon_new(file);
- 
-    MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
-                                                               icon,
-                                                               "",
-                                                               NULL,
-                                                               notificationData.messageText.toUtf8().data(),
-                                                               notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
-    /* FIXME: uncomment when messaging-menu support two regular buttons
-    messaging_menu_message_add_action(message,
-                                      "saveFlashMessage",
-                                      C::gettext("Save"),
-                                      NULL,
-                                      NULL
-                                      );
-    messaging_menu_message_add_action(message,
-                                      "dismiss",
-                                      C::gettext("Dismiss"),
-                                      NULL,
-                                      NULL
-                                      );
-    */
- 
-    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::flashMessageActivateCallback), this);
-    mMessages[notificationData.encodedEventId] = notificationData;
-    messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
-
-    g_object_unref(file);
-    g_object_unref(icon);
-    g_object_unref(message);
+//    QUrl iconPath = QUrl::fromLocalFile(telephonyServiceDir() + "/assets/avatar-default@18.png");
+//    QString contactAlias = notificationData.senderId;
+//    GFile *file = g_file_new_for_uri(iconPath.toString().toUtf8().data());
+//    GIcon *icon = g_file_icon_new(file);
+//
+//    MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
+//                                                               icon,
+//                                                               "",
+//                                                               NULL,
+//                                                               notificationData.messageText.toUtf8().data(),
+//                                                               notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
+//    /* FIXME: uncomment when messaging-menu support two regular buttons
+//    messaging_menu_message_add_action(message,
+//                                      "saveFlashMessage",
+//                                      C::gettext("Save"),
+//                                      NULL,
+//                                      NULL
+//                                      );
+//    messaging_menu_message_add_action(message,
+//                                      "dismiss",
+//                                      C::gettext("Dismiss"),
+//                                      NULL,
+//                                      NULL
+//                                      );
+//    */
+//
+//    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::flashMessageActivateCallback), this);
+//    mMessages[notificationData.encodedEventId] = notificationData;
+//    messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
+//
+//    g_object_unref(file);
+//    g_object_unref(icon);
+//    g_object_unref(message);
  
 }
 
@@ -133,38 +132,38 @@ void MessagingMenu::addNotification(NotificationData notificationData)
         return;
     }
 
-    mMessages[notificationData.encodedEventId] = notificationData;
-
-    GFile *file = NULL;
-    GIcon *icon = NULL;
-    file = g_file_new_for_uri(notificationData.icon.toUtf8().data());
-    icon = g_file_icon_new(file);
-
-    MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
-                                                               icon,
-                                                               notificationData.notificationTitle.toUtf8().data(),
-                                                               "",
-                                                               notificationData.messageText.toUtf8().data(),
-                                                               notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
-    messaging_menu_message_add_action(message,
-                                      "quickReply",
-                                      C::gettext("Send"), // label
-                                      G_VARIANT_TYPE("s"),
-                                      NULL // predefined values
-                                      );
-    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::messageActivateCallback), this);
-
-    messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
-
-    if (file) {
-        g_object_unref(file);
-    }
-    if (icon) {
-        g_object_unref(icon);
-    }
-    if (message) {
-        g_object_unref(message);
-    }
+//    mMessages[notificationData.encodedEventId] = notificationData;
+//
+//    GFile *file = NULL;
+//    GIcon *icon = NULL;
+//    file = g_file_new_for_uri(notificationData.icon.toUtf8().data());
+//    icon = g_file_icon_new(file);
+//
+//    MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
+//                                                               icon,
+//                                                               notificationData.notificationTitle.toUtf8().data(),
+//                                                               "",
+//                                                               notificationData.messageText.toUtf8().data(),
+//                                                               notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
+//    messaging_menu_message_add_action(message,
+//                                      "quickReply",
+//                                      C::gettext("Send"), // label
+//                                      G_VARIANT_TYPE("s"),
+//                                      NULL // predefined values
+//                                      );
+//    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::messageActivateCallback), this);
+//
+//    messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
+//
+//    if (file) {
+//        g_object_unref(file);
+//    }
+//    if (icon) {
+//        g_object_unref(icon);
+//    }
+//    if (message) {
+//        g_object_unref(message);
+//    }
 }
 
 void MessagingMenu::addMessage(NotificationData notificationData)
@@ -246,27 +245,27 @@ void MessagingMenu::addMessage(NotificationData notificationData)
         }
 
         qDebug() << "notify message received:" << notificationData.encodedEventId.toUtf8();
-        MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
-                                                                   icon,
-                                                                   displayLabel.toUtf8().data(),
-                                                                   subTitle.toUtf8().data(),
-                                                                   notificationData.messageText.toUtf8().data(),
-                                                                   notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
-        messaging_menu_message_add_action(message,
-                                          "quickReply",
-                                          C::gettext("Send"), // label
-                                          G_VARIANT_TYPE("s"),
-                                          NULL // predefined values
-                                          );
-        g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::messageActivateCallback), this);
-
-        messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
+//        MessagingMenuMessage *message = messaging_menu_message_new(notificationData.encodedEventId.toUtf8().data(),
+//                                                                   icon,
+//                                                                   displayLabel.toUtf8().data(),
+//                                                                   subTitle.toUtf8().data(),
+//                                                                   notificationData.messageText.toUtf8().data(),
+//                                                                   notificationData.timestamp.toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
+//        messaging_menu_message_add_action(message,
+//                                          "quickReply",
+//                                          C::gettext("Send"), // label
+//                                          G_VARIANT_TYPE("s"),
+//                                          NULL // predefined values
+//                                          );
+//        g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::messageActivateCallback), this);
+//
+//        messaging_menu_app_append_message(mMessagesApp, message, SOURCE_ID, true);
 
         if (file) {
             g_object_unref(file);
         }
         g_object_unref(icon);
-        g_object_unref(message);
+//        g_object_unref(message);
     });
 
     // FIXME: For accounts not based on phone numbers, don't try to match contacts for now
@@ -285,54 +284,54 @@ void MessagingMenu::removeMessage(const QString &messageId)
         return;
     }
 
-    messaging_menu_app_remove_message_by_id(mMessagesApp, messageId.toUtf8().data());
+//    messaging_menu_app_remove_message_by_id(mMessagesApp, messageId.toUtf8().data());
     mMessages.remove(messageId);
 }
 
 void MessagingMenu::addCallToMessagingMenu(Call call, const QString &text, bool supportsTextReply)
 {
     qDebug() << __PRETTY_FUNCTION__;
-    GVariant *messages = NULL;
-    GFile *file = g_file_new_for_uri(call.contactIcon.toString().toUtf8().data());
-    GIcon *icon = g_file_icon_new(file);
-    MessagingMenuMessage *message = messaging_menu_message_new(call.targetId.toUtf8().data(),
-                                                               icon,
-                                                               call.contactAlias.toUtf8().data(),
-                                                               NULL,
-                                                               text.toUtf8().data(),
-                                                               call.timestamp.toMSecsSinceEpoch() * 1000);  // the value is expected to be in microseconds
-
-    call.messageId = messaging_menu_message_get_id(message);
-    if (supportsTextReply && call.targetId != OFONO_PRIVATE_NUMBER && call.targetId != OFONO_UNKNOWN_NUMBER) {
-        messaging_menu_message_add_action(message,
-                                          "callBack",
-                                          C::gettext("Call back"), // label
-                                          NULL, // argument type
-                                          NULL // predefined values
-                                          );
-        const char *predefinedMessages[] = {
-                C::gettext("I missed your call - can you call me now?"),
-                C::gettext("I'm running late. I'm on my way."),
-                C::gettext("I'm busy at the moment. I'll call you later."),
-                C::gettext("I'll be 20 minutes late."),
-                C::gettext("Sorry, I'm still busy. I'll call you later."),
-                0
-                };
-        messages = g_variant_new_strv(predefinedMessages, -1);
-        messaging_menu_message_add_action(message,
-                                          "replyWithMessage",
-                                          C::gettext("Send"), // label
-                                          G_VARIANT_TYPE("s"),
-                                          messages // predefined values
-                                          );
-    }
-    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::callsActivateCallback), this);
-    messaging_menu_app_append_message(mCallsApp, message, SOURCE_ID, true);
-    mCalls.append(call);
-
-    g_object_unref(file);
-    g_object_unref(icon);
-    g_object_unref(message);
+//    GVariant *messages = NULL;
+//    GFile *file = g_file_new_for_uri(call.contactIcon.toString().toUtf8().data());
+//    GIcon *icon = g_file_icon_new(file);
+//    MessagingMenuMessage *message = messaging_menu_message_new(call.targetId.toUtf8().data(),
+//                                                               icon,
+//                                                               call.contactAlias.toUtf8().data(),
+//                                                               NULL,
+//                                                               text.toUtf8().data(),
+//                                                               call.timestamp.toMSecsSinceEpoch() * 1000);  // the value is expected to be in microseconds
+//
+//    call.messageId = messaging_menu_message_get_id(message);
+//    if (supportsTextReply && call.targetId != OFONO_PRIVATE_NUMBER && call.targetId != OFONO_UNKNOWN_NUMBER) {
+//        messaging_menu_message_add_action(message,
+//                                          "callBack",
+//                                          C::gettext("Call back"), // label
+//                                          NULL, // argument type
+//                                          NULL // predefined values
+//                                          );
+//        const char *predefinedMessages[] = {
+//                C::gettext("I missed your call - can you call me now?"),
+//                C::gettext("I'm running late. I'm on my way."),
+//                C::gettext("I'm busy at the moment. I'll call you later."),
+//                C::gettext("I'll be 20 minutes late."),
+//                C::gettext("Sorry, I'm still busy. I'll call you later."),
+//                0
+//                };
+//        messages = g_variant_new_strv(predefinedMessages, -1);
+//        messaging_menu_message_add_action(message,
+//                                          "replyWithMessage",
+//                                          C::gettext("Send"), // label
+//                                          G_VARIANT_TYPE("s"),
+//                                          messages // predefined values
+//                                          );
+//    }
+//    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::callsActivateCallback), this);
+//    messaging_menu_app_append_message(mCallsApp, message, SOURCE_ID, true);
+//    mCalls.append(call);
+//
+//    g_object_unref(file);
+//    g_object_unref(icon);
+//    g_object_unref(message);
 }
 
 void MessagingMenu::addCall(const QString &targetId, const QString &accountId, const QDateTime &timestamp)
@@ -353,7 +352,7 @@ void MessagingMenu::addCall(const QString &targetId, const QString &accountId, c
             mCalls.removeOne(callMessage);
 
             // remove the previous entry and add a new one increasing the missed call count
-            messaging_menu_app_remove_message_by_id(mCallsApp, callMessage.messageId.toUtf8().data());
+//            messaging_menu_app_remove_message_by_id(mCallsApp, callMessage.messageId.toUtf8().data());
             break;
         }
     }
@@ -444,7 +443,7 @@ void MessagingMenu::removeCall(const QString &targetId, const QString &accountId
             mCalls.removeOne(callMessage);
 
             // remove the previous entry and add a new one increasing the missed call count
-            messaging_menu_app_remove_message_by_id(mCallsApp, callMessage.messageId.toUtf8().data());
+//            messaging_menu_app_remove_message_by_id(mCallsApp, callMessage.messageId.toUtf8().data());
             break;
         }
     }
@@ -457,7 +456,7 @@ void MessagingMenu::showVoicemailEntry(AccountEntry *account)
         return;
     }
 
-    messaging_menu_app_remove_message_by_id(mCallsApp, account->accountId().toUtf8().data());
+//    messaging_menu_app_remove_message_by_id(mCallsApp, account->accountId().toUtf8().data());
     mVoicemailIds.removeAll(account->accountId());
 
     QString messageBody = C::gettext("Voicemail messages");
@@ -471,26 +470,26 @@ void MessagingMenu::showVoicemailEntry(AccountEntry *account)
     QString accountLabel(C::gettext("Voicemail"));
     AccountEntry::addAccountLabel(account->accountId(), accountLabel);
 
-    MessagingMenuMessage *message = messaging_menu_message_new(account->accountId().toUtf8().data(),
-                                                               icon,
-                                                               accountLabel.toUtf8().data(),
-                                                               NULL,
-                                                               messageBody.toUtf8().data(),
-                                                               QDateTime::currentDateTime().toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
-    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::callsActivateCallback), this);
-    messaging_menu_app_append_message(mCallsApp, message, SOURCE_ID, true);
-    mVoicemailIds.append(ofonoAccount->accountId());
+//    MessagingMenuMessage *message = messaging_menu_message_new(account->accountId().toUtf8().data(),
+//                                                               icon,
+//                                                               accountLabel.toUtf8().data(),
+//                                                               NULL,
+//                                                               messageBody.toUtf8().data(),
+//                                                               QDateTime::currentDateTime().toMSecsSinceEpoch() * 1000); // the value is expected to be in microseconds
+//    g_signal_connect(message, "activate", G_CALLBACK(&MessagingMenu::callsActivateCallback), this);
+//    messaging_menu_app_append_message(mCallsApp, message, SOURCE_ID, true);
+//    mVoicemailIds.append(ofonoAccount->accountId());
 
     g_object_unref(icon);
-    g_object_unref(message);
+//    g_object_unref(message);
 }
 
 void MessagingMenu::hideVoicemailEntry(AccountEntry *account)
 {
     mVoicemailIds.removeAll(account->accountId());
-    messaging_menu_app_remove_message_by_id(mCallsApp, account->accountId().toUtf8().data());
+//    messaging_menu_app_remove_message_by_id(mCallsApp, account->accountId().toUtf8().data());
 }
-
+/*
 void MessagingMenu::messageActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance)
 {
     QString action(actionId);
@@ -529,7 +528,7 @@ void MessagingMenu::callsActivateCallback(MessagingMenuMessage *message, const c
         QMetaObject::invokeMethod(instance, "replyWithMessage", Q_ARG(QString, messageId), Q_ARG(QString, text));
     }
 }
-
+*/
 void MessagingMenu::sendMessageReply(const QString &messageId, const QString &reply)
 {
     NotificationData notificationData = mMessages[messageId];
@@ -639,6 +638,6 @@ MessagingMenu *MessagingMenu::instance()
 
 MessagingMenu::~MessagingMenu()
 {
-    g_object_unref(mMessagesApp);
-    g_object_unref(mCallsApp);
+//    g_object_unref(mMessagesApp);
+//    g_object_unref(mCallsApp);
 }

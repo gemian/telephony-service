@@ -61,7 +61,6 @@ parts:
       - qtdeclarative5-ubuntu-ui-toolkit-plugin
       - qtmultimedia5-dev
       - qtpim5-dev
-      - libusermetricsinput1-dev
       - telepathy-mission-control-5
       - upstart
     stage-packages:
@@ -72,7 +71,6 @@ parts:
       - telepathy-mission-control-5
       - ubuntu-sounds
       - tone-generator
-      - libusermetricsinput1
       - dconf-cli
     after: [desktop-ubuntu-app-platform]
 

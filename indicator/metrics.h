@@ -25,9 +25,6 @@
 
 #include <QObject>
 #include <QMap>
-#include <libusermetricsinput/MetricManager.h>
-
-using namespace UserMetricsInput;
 
 class Metrics : public QObject
 {
@@ -46,8 +43,8 @@ public:
     
 private:
     explicit Metrics(QObject *parent = 0);
-    QMap<MetricType, UserMetricsInput::MetricPtr> mMetrics;
-    UserMetricsInput::MetricManagerPtr mMetricManager;
+//    QMap<MetricType, UserMetricsInput::MetricPtr> mMetrics;
+//    UserMetricsInput::MetricManagerPtr mMetricManager;
 };
 
 #endif // METRICS_H

@@ -26,7 +26,6 @@
 #include <QObject>
 #include <QMap>
 #include <QDBusInterface>
-#include <messaging-menu.h>
 #include "accountentry.h"
 #include <libnotify/notify.h>
 
@@ -85,9 +84,9 @@ public:
     void removeCall(const QString &targetId, const QString &accountId);
     void addCallToMessagingMenu(Call call, const QString &text, bool supportsTextReply = true);
 
-    static void flashMessageActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
-    static void messageActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
-    static void callsActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
+//    static void flashMessageActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
+//    static void messageActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
+//    static void callsActivateCallback(MessagingMenuMessage *message, const char *actionId, GVariant *param, MessagingMenu *instance);
 
     void showVoicemailEntry(AccountEntry *account);
     void hideVoicemailEntry(AccountEntry *account);
@@ -109,8 +108,8 @@ private Q_SLOTS:
 private:
     explicit MessagingMenu(QObject *parent = 0);
 
-    MessagingMenuApp *mCallsApp;
-    MessagingMenuApp *mMessagesApp;
+//    MessagingMenuApp *mCallsApp;
+//    MessagingMenuApp *mMessagesApp;
     QMap<QString, NotificationData> mMessages;
     QList<Call> mCalls;
     QStringList mVoicemailIds;

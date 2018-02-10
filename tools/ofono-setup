@@ -36,9 +36,6 @@ while ! check_mission_control_running; do
     sleep 1
 done
 
-# migrate gsettings to accounts service
-/usr/bin/phone-gsettings-migration.py
-
 # FIXME mission control for some reason does not start tp-ofono if there is no connection
 # even if always-dispatch is true on the account, this workaround fixes the problem
 dconf write /org/gnome/empathy/use-conn false 2>&1 > /dev/null
@@ -84,49 +81,4 @@ MODEM_COUNT=0
 # check if there is at least one modem
 if [ "$(getprop rild.libpath '')" != "" ]; then
     MODEM_COUNT=$(getprop ril.num_slots 1)
-fi
-
-if [ "$MODEM_COUNT" != "$EXISTING_OFONO_ACCOUNTS_COUNT" ]; then
-    echo "modem count: $MODEM_COUNT"
-    echo "existing ofono accounts: $EXISTING_OFONO_ACCOUNTS_COUNT"
-    GSETTINGS_ARRAY="{"
-
-    LAST_MODEM_INDEX="`expr $MODEM_COUNT - 1`"
-    # check if all modems belong to at least one existing account
-    for INDEX in $(seq 0 $LAST_MODEM_INDEX); do
-        MODEM_OBJPATH=/ril_$INDEX
-
-        # get previous name from gsettings if any
-        EXISTING_NAME=$(python3 -c "array=$(gsettings get com.ubuntu.phone sim-names); print (array[\"$MODEM_OBJPATH\"])")
-        if [ -n "$EXISTING_NAME" ]; then
-            NAME=$EXISTING_NAME
-        else
-            SIM_NAME=$(gettext -d telephony-service "SIM %1")
-            # replace the %1 with the actual index
-            NAME=$(echo $SIM_NAME | sed "s/%1$/$(($INDEX+1))/")
-        fi
- 
-        if [ "" = "$(existing_account_for_modem_objpath $MODEM_OBJPATH)" ]; then
-            echo "no account found for modem $MODEM_OBJPATH"
-            ACCOUNT="account$INDEX"
-            echo "creating ofono/ofono/$ACCOUNT"
-            mc-tool add ofono/ofono $ACCOUNT string:modem-objpath=$MODEM_OBJPATH
-            echo "enabling ofono/ofono/$ACCOUNT"
-            mc-tool enable ofono/ofono/$ACCOUNT
-            mc-tool auto-connect ofono/ofono/$ACCOUNT
-            mc-tool display ofono/ofono/$ACCOUNT "$NAME"
-            # append this entry to the gsettings array
-            GSETTINGS_ARRAY="$GSETTINGS_ARRAY '$MODEM_OBJPATH': '$NAME',"
-        else
-            echo "account found for modem $MODEM_OBJPATH"
-            # this account already exists, just take the name from gsettings
-            GSETTINGS_ARRAY="$GSETTINGS_ARRAY '$MODEM_OBJPATH': '$NAME',"
-        fi
-    done
-    # remove the last "," if present
-    GSETTINGS_ARRAY="$(echo $GSETTINGS_ARRAY | sed 's/,$//g')}"
-    # set names in gsettings
-    gsettings set com.ubuntu.phone sim-names "$GSETTINGS_ARRAY"
-else
-    echo "sanity check passed"
 fi

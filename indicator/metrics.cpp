@@ -32,23 +32,22 @@ const QString DIALER_CALL_DURATION_STATISTICS_ID = QString("dialer-calls-duratio
 
 #define GettextMarkExtraction(x) x
 
-using namespace UserMetricsInput;
 
 Metrics::Metrics(QObject *parent) :
     QObject(parent)
 {
     try {
-        mMetricManager.reset(MetricManager::getInstance());
-        mMetrics[SentMessages] = mMetricManager->add(MetricParameters(MESSAGES_SENT_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> text messages sent today"))
-                                                      .emptyDataString(GettextMarkExtraction("No text messages sent today")).textDomain(APP_ID).minimum(0.0));
-        mMetrics[ReceivedMessages] = mMetricManager->add(MetricParameters(MESSAGES_RECEIVED_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> text messages received today"))
-                                                     .emptyDataString(GettextMarkExtraction("No text messages received today")).textDomain(APP_ID).minimum(0.0));
-        mMetrics[IncomingCalls] = mMetricManager->add(MetricParameters(DIALER_INCOMING_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> calls received today"))
-                                                      .emptyDataString(GettextMarkExtraction("No calls received today")).textDomain(APP_ID).minimum(0.0));
-        mMetrics[OutgoingCalls] = mMetricManager->add(MetricParameters(DIALER_OUTGOING_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> calls made today"))
-                                                      .emptyDataString(GettextMarkExtraction("No calls made today")).textDomain(APP_ID).minimum(0.0));
-        mMetrics[CallDurations] = mMetricManager->add(MetricParameters(DIALER_CALL_DURATION_STATISTICS_ID).formatString(GettextMarkExtraction("Spent <b>%1</b> minutes in calls today"))
-                                                      .emptyDataString(GettextMarkExtraction("No calls made today")).textDomain(APP_ID).minimum(0.0));
+//        mMetricManager.reset(MetricManager::getInstance());
+//        mMetrics[SentMessages] = mMetricManager->add(MetricParameters(MESSAGES_SENT_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> text messages sent today"))
+//                                                      .emptyDataString(GettextMarkExtraction("No text messages sent today")).textDomain(APP_ID).minimum(0.0));
+//        mMetrics[ReceivedMessages] = mMetricManager->add(MetricParameters(MESSAGES_RECEIVED_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> text messages received today"))
+//                                                     .emptyDataString(GettextMarkExtraction("No text messages received today")).textDomain(APP_ID).minimum(0.0));
+//        mMetrics[IncomingCalls] = mMetricManager->add(MetricParameters(DIALER_INCOMING_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> calls received today"))
+//                                                      .emptyDataString(GettextMarkExtraction("No calls received today")).textDomain(APP_ID).minimum(0.0));
+//        mMetrics[OutgoingCalls] = mMetricManager->add(MetricParameters(DIALER_OUTGOING_STATISTICS_ID).formatString(GettextMarkExtraction("<b>%1</b> calls made today"))
+//                                                      .emptyDataString(GettextMarkExtraction("No calls made today")).textDomain(APP_ID).minimum(0.0));
+//        mMetrics[CallDurations] = mMetricManager->add(MetricParameters(DIALER_CALL_DURATION_STATISTICS_ID).formatString(GettextMarkExtraction("Spent <b>%1</b> minutes in calls today"))
+//                                                      .emptyDataString(GettextMarkExtraction("No calls made today")).textDomain(APP_ID).minimum(0.0));
     } catch(std::exception &e) {
         qWarning() << "Error connecting to metrics service:" << e.what();
     }
@@ -62,14 +61,14 @@ Metrics *Metrics::instance()
 
 void Metrics::increment(Metrics::MetricType metric, double amount)
 {
-    MetricPtr metricPtr;
-    metricPtr = mMetrics[metric];
-    if (!metricPtr) {
-        return;
-    }
-    try {
-        metricPtr->increment(amount);
-    } catch(std::exception &e) {
-        qWarning() << "Error incrementing telephony metric:" << e.what();
-    }
+//    MetricPtr metricPtr;
+//    metricPtr = mMetrics[metric];
+//    if (!metricPtr) {
+//        return;
+//    }
+//    try {
+//        metricPtr->increment(amount);
+//    } catch(std::exception &e) {
+//        qWarning() << "Error incrementing telephony metric:" << e.what();
+//    }
 }
