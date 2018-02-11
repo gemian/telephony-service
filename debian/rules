@@ -14,7 +14,7 @@ override_dh_install:
 	dh_install --fail-missing
 
 %:
-	dh $@ --parallel --with translations
+	dh $@ --parallel
 
 override_dh_auto_configure:
 	# Debian defines CMAKE_INSTALL_LOCALSTATEDIR as /usr/var, which is wrong.
