@@ -47,15 +47,15 @@ ContactWatcher::ContactWatcher(QObject *parent) :
             SIGNAL(contactsAdded(QList<QContactId>)),
             SLOT(onContactsAdded(QList<QContactId>)));
     connect(ContactUtils::sharedManager(),
-            SIGNAL(contactsChanged(QList<QContactId>)),
-            SLOT(onContactsChanged(QList<QContactId>)));
+            SIGNAL(contactsChanged(QList<QContactId>, QList<QContactDetail::DetailType>)),
+            SLOT(onContactsChanged(QList<QContactId>, QList<QContactDetail::DetailType>)));
     connect(ContactUtils::sharedManager(),
             SIGNAL(contactsRemoved(QList<QContactId>)),
             SLOT(onContactsRemoved(QList<QContactId>)));
 
     connect(this, SIGNAL(contactIdChanged()), SIGNAL(isUnknownChanged()));
 }
-
+//, const QList<QContactDetail::DetailType>& typesChanged
 ContactWatcher::~ContactWatcher()
 {
     if (mRequest) {
@@ -339,8 +339,9 @@ void ContactWatcher::onContactsAdded(QList<QContactId> ids)
     startSearching();
 }
 
-void ContactWatcher::onContactsChanged(QList<QContactId> ids)
+void ContactWatcher::onContactsChanged(QList<QContactId> ids, QList<QContactDetail::DetailType> types)
 {
+    qWarning() << "ContactWatcher::onContactsChanged";
     // check for changes even if we have this contact already,
     // as the number might have changed, thus invalidating the current contact
     startSearching();
@@ -360,6 +361,7 @@ void ContactWatcher::onContactsRemoved(QList<QContactId> ids)
 
 void ContactWatcher::onResultsAvailable()
 {
+    qWarning() << "ContactWatcher::onResultsAvailable";
     QContactFetchRequest *request = qobject_cast<QContactFetchRequest*>(sender());
     if (request && request->contacts().size() > 0) {
         QContact contact;
