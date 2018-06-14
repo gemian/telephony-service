@@ -56,9 +56,9 @@ TelepathyHelper::TelepathyHelper(QObject *parent)
       mChannelObserverPtr(NULL),
       mHandlerInterface(0),
       mApproverInterface(0),
-      mFlightModeInterface("org.freedesktop.URfkill",
-                           "/org/freedesktop/URfkill",
-                           "org.freedesktop.URfkill",
+      mFlightModeInterface("net.connman",
+                           "/",
+                           "net.connman.Manager",
                            QDBusConnection::systemBus())
 {
     mQmlAccounts = new AccountList(Protocol::AllFeatures, QString::null, this);
@@ -143,20 +143,21 @@ bool TelepathyHelper::mmsEnabled()
 
 bool TelepathyHelper::flightMode()
 {
-    QDBusReply<bool> reply = mFlightModeInterface.call("IsFlightMode");
+    QVariant reply = mFlightModeInterface.property("OfflineMode");
     if (reply.isValid()) {
-        return reply;
+        return reply.toBool();
     }
     return false;
 }
 
 void TelepathyHelper::setFlightMode(bool value)
 {
-    mFlightModeInterface.asyncCall("FlightMode", value);
+    mFlightModeInterface.setProperty("OfflineMode", value);
 }
 
 QList<AccountEntry*> TelepathyHelper::accounts() const
 {
+
     return mAccounts;
 }
 
@@ -487,7 +488,7 @@ void TelepathyHelper::onNewAccount(const Tp::AccountPtr &account)
             sortedOfonoAccounts[modemObjName] = account;
         }
     }
-    mAccounts = QList<AccountEntry*>() << sortedOfonoAccounts.values() <<  sortedOtherAccounts.values() ;
+    mAccounts = QList<AccountEntry*>() << sortedOfonoAccounts.values() <<  sortedOtherAccounts.values();
 
     Q_EMIT accountIdsChanged();
     Q_EMIT accountsChanged();
