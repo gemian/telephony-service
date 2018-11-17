@@ -97,7 +97,7 @@ TelepathyHelper::TelepathyHelper(QObject *parent)
     mClientRegistrar = Tp::ClientRegistrar::create(mAccountManager);
     connect(GreeterContacts::instance(), SIGNAL(phoneSettingsChanged(QString)), this, SLOT(onPhoneSettingsChanged(QString)));
     connect(GreeterContacts::instance(), SIGNAL(soundSettingsChanged(QString)), this, SLOT(onPhoneSettingsChanged(QString)));
-    connect(&mFlightModeInterface, SIGNAL(FlightModeChanged(bool)), this, SIGNAL(flightModeChanged()));
+    connect(&mFlightModeInterface, SIGNAL(OfflineModeChanged(bool)), this, SIGNAL(flightModeChanged()));
 
     mMmsEnabled = GreeterContacts::instance()->mmsEnabled();
 }
