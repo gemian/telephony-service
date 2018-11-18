@@ -53,7 +53,6 @@ class TelepathyHelper : public QObject
     Q_PROPERTY(AccountList *phoneAccounts READ qmlPhoneAccounts CONSTANT)
     Q_PROPERTY(AccountEntry *defaultMessagingAccount READ defaultMessagingAccount NOTIFY defaultMessagingAccountChanged)
     Q_PROPERTY(AccountEntry *defaultCallAccount READ defaultCallAccount NOTIFY defaultCallAccountChanged)
-    Q_PROPERTY(bool flightMode READ flightMode WRITE setFlightMode NOTIFY flightModeChanged)
     Q_PROPERTY(bool mmsEnabled READ mmsEnabled WRITE setMmsEnabled NOTIFY mmsEnabledChanged)
     Q_PROPERTY(bool emergencyCallsAvailable READ emergencyCallsAvailable NOTIFY emergencyCallsAvailableChanged)
     Q_PROPERTY(bool dialpadSoundsEnabled READ dialpadSoundsEnabled WRITE setDialpadSoundsEnabled NOTIFY dialpadSoundsEnabledChanged)
@@ -110,7 +109,6 @@ public:
     QVariantMap simNames() const;
     void setMmsEnabled(bool value);
     bool flightMode();
-    void setFlightMode(bool value);
     bool ready() const;
     QStringList accountIds();
     bool emergencyCallsAvailable() const;
@@ -135,7 +133,6 @@ Q_SIGNALS:
     void setupReady();
     void defaultMessagingAccountChanged();
     void defaultCallAccountChanged();
-    void flightModeChanged();
     void emergencyCallsAvailableChanged();
     void mmsEnabledChanged();
     void simNamesChanged();
@@ -178,7 +175,7 @@ private:
     QVariantMap mSimNames;
     mutable QDBusInterface *mHandlerInterface;
     mutable QDBusInterface *mApproverInterface;
-    QDBusInterface mFlightModeInterface;
+    QDBusInterface mConnManagerInterface;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(TelepathyHelper::AccountTypes)

@@ -255,9 +255,9 @@ void QPulseAudioEngineWorker::cardInfoCallback(const pa_card_info *info)
         qDebug("Found card that supports voicecall: '%s'", info->name);
         m_voicecallcard = info->name;
         m_voicecallhighest = highest->name;
-    qDebug("1");
+        qDebug("1");
         m_voicecallprofile = voice_call->name;
-    qDebug("2");
+        qDebug("2");
     }
 
     /* Handle the use cases needed for bluetooth */
@@ -281,6 +281,10 @@ void QPulseAudioEngineWorker::sinkInfoCallback(const pa_sink_info *info)
     pa_sink_port_info *speaker_and_wired_headphone = NULL;
     AudioMode audiomodetoset;
     AudioModes modes;
+
+    if (!strcmp(info->name, "sink.fast")) {
+        return; //skip fast sink it seems erroneously created by some part of the system
+    }
 
     for (int i = 0; i < info->n_ports; i++) {
         if (!strcmp(info->ports[i]->name, "output-earpiece"))

@@ -56,7 +56,7 @@ TelepathyHelper::TelepathyHelper(QObject *parent)
       mChannelObserverPtr(NULL),
       mHandlerInterface(0),
       mApproverInterface(0),
-      mFlightModeInterface("net.connman",
+      mConnManagerInterface("net.connman",
                            "/",
                            "net.connman.Manager",
                            QDBusConnection::systemBus())
@@ -97,7 +97,6 @@ TelepathyHelper::TelepathyHelper(QObject *parent)
     mClientRegistrar = Tp::ClientRegistrar::create(mAccountManager);
     connect(GreeterContacts::instance(), SIGNAL(phoneSettingsChanged(QString)), this, SLOT(onPhoneSettingsChanged(QString)));
     connect(GreeterContacts::instance(), SIGNAL(soundSettingsChanged(QString)), this, SLOT(onPhoneSettingsChanged(QString)));
-    connect(&mFlightModeInterface, SIGNAL(OfflineModeChanged(bool)), this, SIGNAL(flightModeChanged()));
 
     mMmsEnabled = GreeterContacts::instance()->mmsEnabled();
 }
@@ -143,16 +142,11 @@ bool TelepathyHelper::mmsEnabled()
 
 bool TelepathyHelper::flightMode()
 {
-    QVariant reply = mFlightModeInterface.property("OfflineMode");
+    QVariant reply = mConnManagerInterface.property("OfflineMode");
     if (reply.isValid()) {
         return reply.toBool();
     }
     return false;
-}
-
-void TelepathyHelper::setFlightMode(bool value)
-{
-    mFlightModeInterface.setProperty("OfflineMode", value);
 }
 
 QList<AccountEntry*> TelepathyHelper::accounts() const
