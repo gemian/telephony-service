@@ -26,6 +26,7 @@ namespace C {
 #include <QDebug>
 #include <libnotify/notify.h>
 #include "ringtone.h"
+#include "coverui.h"
 #include "ussdindicator.h"
 #include "ofonoaccountentry.h"
 #include "telepathyhelper.h"
@@ -111,6 +112,8 @@ void USSDIndicator::onStateChanged(const QString &state)
 
 void USSDIndicator::showUSSDNotification(const QString &message, bool replyRequired, USSDManager *ussdManager)
 {
+    qDebug("USSDIndicator::showUSSDNotification");
+
     NotificationMenu *menu = replyRequired ? &m_menuRequest : &m_menuNotification;
     QString actionId = "ok_id";
     QString actionLabel = C::gettext("Ok");
@@ -143,6 +146,7 @@ void USSDIndicator::showUSSDNotification(const QString &message, bool replyRequi
     mUSSDRequests[m_notificationId] = ussdManager;
 
     Ringtone::instance()->playIncomingMessageSound();
+    CoverUI::instance()->displayIncomingMessage();
 }
 
 void USSDIndicator::actionInvoked(uint id, const QString &actionKey) 

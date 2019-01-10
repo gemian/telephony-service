@@ -30,6 +30,7 @@
 #include "contactwatcher.h"
 #include "greetercontacts.h"
 #include "ringtone.h"
+#include "coverui.h"
 #include "callmanager.h"
 #include "callentry.h"
 #include "protocol.h"
@@ -116,6 +117,7 @@ void Approver::onUnityStateChanged(int state, int reason)
     // reason == 2 is power key
     if (state == 0 && reason == 2) {
         Ringtone::instance()->stopIncomingCallSound();
+        CoverUI::instance()->hideIncomingCall();
         mVibrateTimer.stop();
         mVibrateEffect.setDuration(1);
         mVibrateEffect.start();
@@ -406,6 +408,7 @@ void Approver::onRejected(Tp::ChannelDispatchOperationPtr dispatchOp)
             this, SLOT(onClaimFinished(Tp::PendingOperation*)));
 
     Ringtone::instance()->stopIncomingCallSound();
+    CoverUI::instance()->hideIncomingCall();
 }
 
 void Approver::onRejectMessage(Tp::ChannelDispatchOperationPtr dispatchOp, const char *action)
@@ -581,12 +584,14 @@ bool Approver::showSnapDecision(const Tp::ChannelDispatchOperationPtr dispatchOp
     } else {
         // play a ringtone
         Ringtone::instance()->playIncomingCallSound();
-    }
 
-    if (!hasCalls && GreeterContacts::instance()->incomingCallVibrate()) {
-        mVibrateEffect.setDuration(2000);
-        mVibrateEffect.start();
-        mVibrateTimer.start();
+        CoverUI::instance()->displayIncomingCall(contact);
+
+        if (GreeterContacts::instance()->incomingCallVibrate()) {
+            mVibrateEffect.setDuration(2000);
+            mVibrateEffect.start();
+            mVibrateTimer.start();
+        }
     }
 
     return true;
@@ -732,6 +737,7 @@ void Approver::closeSnapDecision()
     }
 
     Ringtone::instance()->stopIncomingCallSound();
+    CoverUI::instance()->hideIncomingCall();
     ToneGenerator::instance()->stopWaitingTone();
     mVibrateTimer.stop();
     // WORKAROUND: the ubuntu qt sensors backend does not support setPeriod() and stop(),

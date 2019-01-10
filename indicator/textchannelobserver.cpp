@@ -30,6 +30,7 @@
 #include "config.h"
 #include "contactutils.h"
 #include "ringtone.h"
+#include "coverui.h"
 #include "telepathyhelper.h"
 #include "phoneutils.h"
 #include "accountentry.h"
@@ -336,6 +337,7 @@ void TextChannelObserver::showNotificationForNewGroup(const History::Thread &thr
     }
 
     Ringtone::instance()->playIncomingMessageSound();
+    CoverUI::instance()->displayIncomingMessage();
 }
 
 void TextChannelObserver::showNotificationForFlashMessage(const Tp::ReceivedMessage &message, const QString &accountId)
@@ -389,6 +391,7 @@ void TextChannelObserver::showNotificationForFlashMessage(const Tp::ReceivedMess
     }
 
     Ringtone::instance()->playIncomingMessageSound();
+    CoverUI::instance()->displayIncomingMessage();
 }
 
 void TextChannelObserver::triggerNotificationForMessage(const Tp::TextChannelPtr channel, const Tp::ReceivedMessage &message, const QString &accountId, const QStringList &participantIds)
@@ -401,6 +404,7 @@ void TextChannelObserver::triggerNotificationForMessage(const Tp::TextChannelPtr
     QByteArray token(message.messageToken().toUtf8());
     if (!mUnreadMessages.contains(token)) {
         Ringtone::instance()->playIncomingMessageSound();
+        CoverUI::instance()->displayIncomingMessage();
         return;
     }
 
@@ -509,6 +513,7 @@ void TextChannelObserver::showNotificationForMessage(const Tp::TextChannelPtr ch
     // ignore logic if we are in greeter mode
     if (!mUnreadMessages.contains(token) && !GreeterContacts::isGreeterMode()) {
         Ringtone::instance()->playIncomingMessageSound();
+        CoverUI::instance()->displayIncomingMessage();
         return;
     }
 
@@ -614,6 +619,7 @@ void TextChannelObserver::showNotificationForMessage(const Tp::TextChannelPtr ch
     }
 
     Ringtone::instance()->playIncomingMessageSound();
+    CoverUI::instance()->displayIncomingMessage();
 }
 
 void TextChannelObserver::updateNotifications(const QContact &contact)

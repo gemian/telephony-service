@@ -27,6 +27,7 @@
 #include <QMap>
 #include <QDBusInterface>
 #include "accountentry.h"
+#include "notificationdata.h"
 #include <libnotify/notify.h>
 
 class Call
@@ -44,28 +45,6 @@ public:
     bool operator==(const Call &other) {
         return other.targetId == targetId;
     }
-};
-
-class TextChannelObserver;
-
-class NotificationData {
-public:
-    NotificationData() : targetType(0), observer(NULL), notificationList(NULL) {}
-    QString accountId;
-    QString senderId;
-    QString targetId;
-    uint targetType;
-    QStringList participantIds;
-    QDateTime timestamp;
-    QString messageText;
-    QString encodedEventId;
-    QString alias;
-    QString roomName;
-    QString icon;
-    QString notificationTitle;
-    QString messageReply;
-    TextChannelObserver *observer;
-    QMap<NotifyNotification*, NotificationData*> *notificationList;
 };
 
 class MessagingMenu : public QObject
