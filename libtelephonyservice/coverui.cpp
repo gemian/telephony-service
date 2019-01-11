@@ -75,14 +75,16 @@ void CoverUIWorker::displayIncomingMessage() {
                          "org.thinkglobally.Gemian.LEDs",
                          QDBusConnection::AS_BUSNAME());
     iface.asyncCall("ClearLEDBlockAnimation");
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 1, 100);
     iface.asyncCall("SetLEDBlockStep", 3, 1, 1, 255);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 1, 100);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 30);//next frame
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 2, 100);
+    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 10);
+    iface.asyncCall("SetLEDBlockStep", 2, 1, 1, 60);
+    iface.asyncCall("SetLEDBlockStep", 4, 1, 1, 60);
+    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 30);
     iface.asyncCall("SetLEDBlockStep", 3, 1, 2, 255);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 2, 100);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 30);//next frame
+    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 10);
+    iface.asyncCall("SetLEDBlockStep", 2, 1, 2, 255);
+    iface.asyncCall("SetLEDBlockStep", 4, 1, 2, 255);
+    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 60);
     iface.asyncCall("PushLEDBlockAnimation");
 }
 
