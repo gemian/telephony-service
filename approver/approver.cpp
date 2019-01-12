@@ -73,6 +73,9 @@ Approver::Approver()
     connect(dbus,
             SIGNAL(rejectCallRequested()),
             SLOT(onRejectCallRequested()));
+    connect(dbus,
+            SIGNAL(hangupAndAcceptCallRequested()),
+            SLOT(onHangupAndAcceptCallRequested()));
 
     dbus->connectToBus();
 
@@ -372,7 +375,7 @@ void Approver::onApproved(Tp::ChannelDispatchOperationPtr dispatchOp)
     dispatchOp->handleWith(TELEPHONY_SERVICE_HANDLER);
 
     // and then launch the dialer-app
-    ApplicationUtils::openUrl(QUrl("dialer:///?view=liveCall"));
+    ApplicationUtils::openUrl(QUrl("tel:///?view=liveCall"));
 
     mDispatchOps.removeAll(dispatchOp);
 }
@@ -392,7 +395,7 @@ void Approver::onHangUpAndApproved(Tp::ChannelDispatchOperationPtr dispatchOp)
     dispatchOp->handleWith(TELEPHONY_SERVICE_HANDLER);
 
     // and then launch the dialer-app
-    ApplicationUtils::openUrl(QUrl("application:///dialer-app.desktop"));
+    ApplicationUtils::openUrl(QUrl("tel:"));
 
     mDispatchOps.removeAll(dispatchOp);
 }

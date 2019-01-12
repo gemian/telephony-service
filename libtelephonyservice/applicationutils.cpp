@@ -31,15 +31,6 @@
 #include <QDesktopServices>
 #include <TelepathyQt/Constants>
 
-
-//static void
-//urlDispatchCallback (const gchar * url, gboolean success, gpointer user_data)
-//{
-//    if (!success) {
-//        qWarning() << "Fail to launch url:" << url;
-//    }
-//}
-
 ApplicationUtils::ApplicationUtils(QObject *parent) :
     QObject(parent)
 {
@@ -65,8 +56,7 @@ bool ApplicationUtils::checkApplicationRunning(const QString &serviceName)
 bool ApplicationUtils::openUrl(const QUrl &url)
 {
     if (qgetenv("TELEPHONY_SERVICE_TEST").isEmpty()) {
-        //TODO: Decide how to handle inter-app handoffs
-        //url_dispatch_send(url.toString().toUtf8().constData(), urlDispatchCallback, 0);
+        QDesktopServices::openUrl(url);
     }
     return true;
 }
