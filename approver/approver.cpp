@@ -329,7 +329,7 @@ void Approver::onChannelReady(Tp::PendingOperation *op)
     } else {
         AccountEntry *account = TelepathyHelper::instance()->accountForConnection(callChannel->connection());
         if (!account) {
-            qCritical() << "Call exists with no account for connection";
+            qCritical() << "Call exists with no account for connection (CR)";
             return;
         }
 
@@ -446,7 +446,7 @@ bool Approver::showSnapDecision(const Tp::ChannelDispatchOperationPtr dispatchOp
 
     AccountEntry *account = TelepathyHelper::instance()->accountForConnection(channel->connection());
     if (!account) {
-        qCritical() << "Call exists with no account for connection";
+        qCritical() << "Call exists with no account for connection (SD)";
         return false;
     }
 
