@@ -585,7 +585,7 @@ bool Approver::showSnapDecision(const Tp::ChannelDispatchOperationPtr dispatchOp
         // play a ringtone
         Ringtone::instance()->playIncomingCallSound();
 
-        CoverUI::instance()->displayIncomingCall(contact);
+        CoverUI::instance()->displayIncomingCall();
 
         if (GreeterContacts::instance()->incomingCallVibrate()) {
             mVibrateEffect.setDuration(2000);

@@ -24,7 +24,7 @@ CoverUIWorker::CoverUIWorker(QObject *parent) :
         QObject(parent) {
 }
 
-void CoverUIWorker::displayIncomingCall(const QContact &contact) {
+void CoverUIWorker::displayIncomingCall() {
     qDebug("CoverUIWorker::displayIncomingCall");
     QDBusInterface iface("org.thinkglobally.Gemian.LEDs",
                          "/org/thinkglobally/Gemian/LEDs",
@@ -114,8 +114,8 @@ CoverUI *CoverUI::instance() {
     return self;
 }
 
-void CoverUI::displayIncomingCall(const QContact &contact) {
-    QMetaObject::invokeMethod(mWorker, "displayIncomingCall", Qt::QueuedConnection, Q_ARG(const QContact &, contact));
+void CoverUI::displayIncomingCall() {
+    QMetaObject::invokeMethod(mWorker, "displayIncomingCall", Qt::QueuedConnection);
 }
 
 void CoverUI::hideIncomingCall() {

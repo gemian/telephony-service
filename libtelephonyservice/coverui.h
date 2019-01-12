@@ -39,7 +39,7 @@ public:
 
 public Q_SLOTS:
 
-    void displayIncomingCall(const QContact &contact);
+    void displayIncomingCall();
 
     void hideIncomingCall();
 
@@ -59,7 +59,7 @@ public:
 
 public Q_SLOTS:
 
-    void displayIncomingCall(const QContact &contact);
+    void displayIncomingCall();
 
     void hideIncomingCall();
 
