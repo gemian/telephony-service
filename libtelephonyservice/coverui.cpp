@@ -31,30 +31,30 @@ void CoverUIWorker::displayIncomingCall() {
                          "org.thinkglobally.Gemian.LEDs",
                          QDBusConnection::AS_BUSNAME());
     iface.asyncCall("ClearLEDBlockAnimation");
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 5, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 5, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 1, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);//next frame
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 2, 200);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 1, 200);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 20);
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 5u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 5u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 1u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);//next frame
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 2u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 1u, 200u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 20u);
     iface.asyncCall("PushLEDBlockAnimation");
 }
 
@@ -75,16 +75,16 @@ void CoverUIWorker::displayIncomingMessage() {
                          "org.thinkglobally.Gemian.LEDs",
                          QDBusConnection::AS_BUSNAME());
     iface.asyncCall("ClearLEDBlockAnimation");
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 1, 255);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 10);
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 1, 60);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 1, 60);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 30);
-    iface.asyncCall("SetLEDBlockStep", 3, 1, 2, 255);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 10);
-    iface.asyncCall("SetLEDBlockStep", 2, 1, 2, 255);
-    iface.asyncCall("SetLEDBlockStep", 4, 1, 2, 255);
-    iface.asyncCall("SetLEDBlockStep", 1, 0, 3, 60);
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 1u, 255u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 10u);
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 1u, 60u);
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 1u, 60u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 30u);
+    iface.asyncCall("SetLEDBlockStep", 3u, 1u, 2u, 255u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 10u);
+    iface.asyncCall("SetLEDBlockStep", 2u, 1u, 2u, 255u);
+    iface.asyncCall("SetLEDBlockStep", 4u, 1u, 2u, 255u);
+    iface.asyncCall("SetLEDBlockStep", 1u, 0u, 3u, 60u);
     iface.asyncCall("PushLEDBlockAnimation");
 }
 
