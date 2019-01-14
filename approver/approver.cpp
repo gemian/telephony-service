@@ -60,13 +60,13 @@ namespace C {
 
 Approver::Approver()
 : Tp::AbstractClientApprover(channelFilters()),
-  mPendingSnapDecision(NULL),
+  mPendingSnapDecision(nullptr),
   mSettleTimer(new QTimer(this))
 {
     mDefaultTitle = C::gettext("Unknown caller");
     mDefaultIcon = QUrl(telephonyServiceDir() + "assets/avatar-default@18.png").toEncoded();
 
-    ApproverDBus *dbus = new ApproverDBus(this);
+    auto *dbus = new ApproverDBus(this);
     connect(dbus,
             SIGNAL(acceptCallRequested()),
             SLOT(onAcceptCallRequested()));
