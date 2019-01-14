@@ -74,7 +74,7 @@ Approver::Approver()
             SIGNAL(rejectCallRequested()),
             SLOT(onRejectCallRequested()));
     connect(dbus,
-            SIGNAL(hangupAndAcceptCallRequested()),
+            SIGNAL(hangUpAndAcceptCallRequested()),
             SLOT(onHangupAndAcceptCallRequested()));
 
     dbus->connectToBus();
