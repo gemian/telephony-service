@@ -751,13 +751,17 @@ void Approver::closeSnapDecision()
 
 void Approver::onHangupAndAcceptCallRequested()
 {
-    if (!mPendingSnapDecision) {
-        return;
-    }
-
-    Tp::ChannelDispatchOperationPtr callDispatchOp = dispatchOperationForIncomingCall();
-    if (!callDispatchOp.isNull()) {
-        onHangUpAndApproved(callDispatchOp);
+    if (mPendingSnapDecision) {
+        Tp::ChannelDispatchOperationPtr callDispatchOp = dispatchOperationForIncomingCall();
+        if (!callDispatchOp.isNull()) {
+            onHangUpAndApproved(callDispatchOp);
+        }
+    } else if (CallManager::instance()->hasCalls()) {
+        // if there is no incoming call, we have to hangup the current active call
+        CallEntry *call =  CallManager::instance()->foregroundCall();
+        if (call) {
+            call->endCall();
+        }
     }
 }
 
