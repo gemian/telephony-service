@@ -52,6 +52,7 @@ Depends: accountsservice-ubuntu-touch-schemas,
          ubuntu-sounds,
          tone-generator[!s390x],
          dconf-cli,
+         libqt5multimedia5-plugins,
          ${misc:Depends},
          ${shlibs:Depends},
 Suggests: telepathy-ofono
