@@ -282,8 +282,8 @@ void QPulseAudioEngineWorker::sinkInfoCallback(const pa_sink_info *info)
     AudioMode audiomodetoset;
     AudioModes modes;
 
-    if (!strcmp(info->name, "sink.fast")) {
-        return; //skip fast sink it seems erroneously created by some part of the system
+    if (!strcmp(info->name, "sink.fast") || !strcmp(info->name, "sink.deep_buffer")) {
+        return; //skip fast and deep_buffer sinks since they do not work for calls
     }
 
     for (int i = 0; i < info->n_ports; i++) {
