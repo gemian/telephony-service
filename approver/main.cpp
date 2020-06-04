@@ -25,7 +25,7 @@
 #include "applicationutils.h"
 #include "approver.h"
 #include "telepathyhelper.h"
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <TelepathyQt/ClientRegistrar>
 #include <TelepathyQt/AbstractClient>
 #include <TelepathyQt/AccountManager>
@@ -37,8 +37,8 @@ namespace C {
 
 int main(int argc, char **argv)
 {
-    QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName("telephony-service-approver");
+    QGuiApplication app(argc, argv);
+    QGuiApplication::setApplicationName("telephony-service-approver");
 
     C::bindtextdomain( "telephony-service", "/usr/share/locale" );
     C::textdomain("telephony-service");

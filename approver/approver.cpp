@@ -375,7 +375,7 @@ void Approver::onApproved(Tp::ChannelDispatchOperationPtr dispatchOp)
     dispatchOp->handleWith(TELEPHONY_SERVICE_HANDLER);
 
     // and then launch the dialer-app
-    ApplicationUtils::openUrl(QUrl("tel:///?view=liveCall"));
+    ApplicationUtils::openUrl(QUrl("dialer:///?view=liveCall"));
 
     mDispatchOps.removeAll(dispatchOp);
 }
