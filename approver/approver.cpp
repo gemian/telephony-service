@@ -524,6 +524,8 @@ bool Approver::showSnapDecision(const Tp::ChannelDispatchOperationPtr dispatchOp
     notify_notification_set_hint_int32(notification,
                                         "x-canonical-snap-decisions-timeout",
                                         -1);
+    // Notification should stay until an action is taken or call is aborted
+    notify_notification_set_timeout(notification, NOTIFY_EXPIRES_NEVER);
 
     QString acceptTitle = hasCalls ? C::gettext("Hold + Answer") :
                                      C::gettext("Accept");
